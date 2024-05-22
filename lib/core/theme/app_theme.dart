@@ -20,11 +20,13 @@ class AppTheme {
       );
 
   static final darkThemeMode = ThemeData.dark().copyWith(
-    scaffoldBackgroundColor: AppColorPallete.backgroundColor,
-    inputDecorationTheme: InputDecorationTheme(
-      contentPadding: const EdgeInsets.all(25),
-      enabledBorder: _border(),
-      focusedBorder: _border(AppColorPallete.gradient2),
-    ),
-  );
+      scaffoldBackgroundColor: AppColorPallete.backgroundColor,
+      inputDecorationTheme: InputDecorationTheme(
+        contentPadding: const EdgeInsets.all(25),
+        enabledBorder: _border(),
+        focusedBorder: _border(AppColorPallete.gradient2),
+      ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColorPallete.backgroundColor,
+      ));
 }
