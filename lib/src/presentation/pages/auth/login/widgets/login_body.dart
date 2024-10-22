@@ -1,10 +1,13 @@
+import 'package:blog_app/src/presentation/pages/auth/login/login_provider_view_model.dart';
 import 'package:blog_app/src/presentation/widgets/elevated_button_widget.dart';
 import 'package:blog_app/src/presentation/widgets/text_field_widget.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter/material.dart';
 
 class LoginBody extends StatelessWidget {
-  const LoginBody({super.key});
+  final LoginProviderViewModel viewModel;
+
+  const LoginBody({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +55,25 @@ class LoginBody extends StatelessWidget {
         const Spacer(),
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: const TextFieldWidget(
+            child: TextFieldWidget(
+              onChanged: (value) {
+                // cambiar el estado: email
+                viewModel.changeEmail(value);
+              },
               text: 'Correo electrónico',
               icon: Icons.email_outlined,
+              error: viewModel.getState().email.error,
             )),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 20),
-          child: const TextFieldWidget(
+          child: TextFieldWidget(
+            onChanged: (value) {
+              // cambiar es estado de: password
+              viewModel.changePassword(value);
+            },
             text: 'Contraseña',
             icon: Icons.lock_clock_outlined,
+            error: viewModel.getState().password.error,
           ),
         ),
         Container(
@@ -68,7 +81,9 @@ class LoginBody extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: ElevatedButtonWidget(
             text: 'Iniciar sesión',
-            onPressed: () {},
+            onPressed: () {
+              viewModel.login();
+            },
           ),
         ),
         Container(
