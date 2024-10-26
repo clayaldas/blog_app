@@ -89,8 +89,14 @@ class LoginBody extends StatelessWidget {
         Container(
           alignment: Alignment.center,
           margin: const EdgeInsets.only(bottom: 46),
-          child: const Text(
-            'No tienes una cuenta?',
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, 'register');
+            },
+            child: const Text(
+              
+              'No tienes una cuenta?',
+            ),
           ),
         )
       ],

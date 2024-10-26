@@ -18,7 +18,7 @@ class LoginProviderViewModel extends ChangeNotifier {
     //_state = _state.copyWith(email: ValidationItem(value: value));
 
     if (value.length >= 6) {
-      _state = _state.copyWith(email: ValidationItem(value: value));
+      _state = _state.copyWith(email: ValidationItem(value: value, error: ''));
     } else {
       // establecer un mensaje de error
       _state = _state.copyWith(
@@ -31,8 +31,17 @@ class LoginProviderViewModel extends ChangeNotifier {
 
   // permite cambiar el valor de la varible: pasword
   void changePassword(String value) {
+    final bool validEmailFormat = RegExp(
+            r'^(([^<>()[]\.,;:\s@"]+(.[^<>()[]\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$')
+        .hasMatch(value);
+
+    if (!validEmailFormat) {
+      _state = _state.copyWith(
+          email: const ValidationItem(error: 'Formato de correo no válido'));
+    } else 
     if (value.length >= 3) {
-      _state = _state.copyWith(password: ValidationItem(value: value));
+      _state =
+          _state.copyWith(password: ValidationItem(value: value, error: ''));
     } else {
       // establecer un mensaje de error
       _state = _state.copyWith(
@@ -44,18 +53,21 @@ class LoginProviderViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isValid() {
-    // si todos los campos pasan la validacion regresar un true caso contrario un false
-    if (_state.email.value.isEmpty && _state.password.value.isEmpty) {
-      return false;
-    }
+  // bool isValid() {
+  //   // si todos los campos pasan la validacion regresar un true caso contrario un false
+  //   if (_state.email.value.isEmpty ||
+  //       _state.email.error.isNotEmpty ||
+  //       _state.password.value.isEmpty ||
+  //       _state.password.error.isNotEmpty) {
+  //     return false;
+  //   }
 
-    return true;
-  }
+  //   return true;
+  // }
 
   // se ejecuta al presionar el boton 'Iniciar sesión'
   void login() {
-    if (isValid()) {
+    if (getState().isValid()) {
       print('Email: ${_state.email.value} ');
 
       print('Password: ${_state.password.value} ');

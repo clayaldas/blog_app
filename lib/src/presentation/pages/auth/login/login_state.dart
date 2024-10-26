@@ -1,4 +1,4 @@
-import 'dart:math';
+//import 'dart:math';
 
 import 'package:blog_app/src/presentation/utils/validation_item.dart';
 
@@ -13,4 +13,17 @@ class LoginState {
   LoginState copyWith({ValidationItem? email, ValidationItem? password}) =>
       LoginState(
           email: email ?? this.email, password: password ?? this.password);
+
+  bool isValid() {
+    // si todos los campos pasan la validacion regresar un true caso contrario un false
+    if (email.value.isEmpty ||
+        email.error.isNotEmpty ||
+        password.value.isEmpty ||
+        password.error.isNotEmpty) {
+      return false;
+    }
+
+    return true;
+  }
+  
 }
