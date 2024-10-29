@@ -25,5 +25,4 @@ class LoginState {
 
     return true;
   }
-  
 }

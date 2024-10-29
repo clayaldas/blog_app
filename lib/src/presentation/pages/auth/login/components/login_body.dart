@@ -1,11 +1,11 @@
-import 'package:blog_app/src/presentation/pages/auth/login/login_provider_view_model.dart';
+import 'package:blog_app/src/presentation/pages/auth/login/login_viewmodel.dart';
 import 'package:blog_app/src/presentation/widgets/elevated_button_widget.dart';
 import 'package:blog_app/src/presentation/widgets/text_field_widget.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter/material.dart';
 
 class LoginBody extends StatelessWidget {
-  final LoginProviderViewModel viewModel;
+  final LoginViewModel viewModel;
 
   const LoginBody({super.key, required this.viewModel});
 
@@ -74,6 +74,7 @@ class LoginBody extends StatelessWidget {
             text: 'Contraseña',
             icon: Icons.lock_clock_outlined,
             error: viewModel.getState().password.error,
+            obscureText: true,
           ),
         ),
         Container(
@@ -94,7 +95,6 @@ class LoginBody extends StatelessWidget {
               Navigator.pushNamed(context, 'register');
             },
             child: const Text(
-              
               'No tienes una cuenta?',
             ),
           ),
