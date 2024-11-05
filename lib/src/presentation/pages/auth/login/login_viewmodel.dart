@@ -2,9 +2,13 @@ import 'package:blog_app/src/presentation/pages/auth/login/login_state.dart';
 import 'package:blog_app/src/presentation/utils/validation_item.dart';
 import 'package:flutter/material.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 class LoginViewModel extends ChangeNotifier {
   // crear una instancia privada de la clase LoginState
   LoginState _state = LoginState();
+
+  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   // getters
   // regresa el valor del variable privada (_state)
@@ -65,11 +69,16 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   // se ejecuta al presionar el boton 'Iniciar sesión'
-  void login() {
+  void login() async {
     if (getState().isValid()) {
       print('Email: ${_state.email.value} ');
 
       print('Password: ${_state.password.value} ');
+
+      final data = await _firebaseAuth.signInWithEmailAndPassword(
+          email: _state.email.value, password: _state.password.value);
+
+      print('Data: $data');
     } else {
       print('El formulario no es válido');
     }
